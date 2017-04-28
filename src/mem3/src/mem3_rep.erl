@@ -336,7 +336,7 @@ find_repl_doc(SrcDb, TgtUUIDPrefix) ->
     SrcUUID = couch_db:get_uuid(SrcDb),
     S = couch_util:encodeBase64Url(couch_crypto:hash(md5, term_to_binary(SrcUUID))),
     DocIdPrefix = <<"_local/shard-sync-", S/binary, "-">>,
-    FoldFun = fun({DocId, {Rev0, {BodyProps}}}, _, _) ->
+    FoldFun = fun({DocId, {Rev0, {BodyProps}}}, _) ->
         TgtUUID = couch_util:get_value(<<"target_uuid">>, BodyProps, <<>>),
         case is_prefix(DocIdPrefix, DocId) of
             true ->
